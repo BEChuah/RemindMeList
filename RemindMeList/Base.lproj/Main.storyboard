@@ -32,7 +32,14 @@
                             <outlet property="delegate" destination="vWX-pF-wqf" id="IxN-5m-h0g"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Remind Me" leftItemsSupplementBackButton="YES" id="bcj-ND-8jd"/>
+                    <navigationItem key="navigationItem" title="Remind Me" leftItemsSupplementBackButton="YES" id="bcj-ND-8jd">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Cxn-Qi-fqp">
+                            <color key="tintColor" red="1" green="0.42405244477655157" blue="0.49095855887009276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="vWX-pF-wqf" id="bsm-kc-7Yf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Od6-jS-Mkl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
