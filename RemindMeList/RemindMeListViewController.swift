@@ -13,9 +13,14 @@ class RemindMeListViewController: UITableViewController {
     
     var itemArray = ["Write Will", "Apply Visa", "Get Cash"]
 
+    let defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        let items = defaults.array(forKey: "RemindMeListArray") as! [String]
+        itemArray = items
     }
 
 //MARK Tableview Datasource Method
@@ -55,6 +60,9 @@ class RemindMeListViewController: UITableViewController {
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             //what happened once the user click the uialert button
             self.itemArray.append(textField.text!)
+            
+            self.defaults.set(self.itemArray, forKey: "RemindMeListArray")
+            
             self.tableView.reloadData()
             
         }
