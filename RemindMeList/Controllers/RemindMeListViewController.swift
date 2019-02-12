@@ -15,27 +15,19 @@ class RemindMeListViewController: UITableViewController {
 
     let defaults = UserDefaults.standard
     
+    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Item.plist")
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let newItem = Item()
-        newItem.title = "Find"
-        itemArray.append(newItem)
+        //Optional(file:///Users/bengeechuah/Library/Developer/CoreSimulator/Devices/BE603A7D-9F07-4741-B5D7-069F724C0AB5/data/Containers/Data/Application/9C60F719-6A9C-43BA-904C-579EC7C74315/Documents/Item.plist)
+        // To show hidden file on Finder use short cut ["Comand" + "Shift" + "." ]
+        // Use short cut [ "Command" + " up arrow" or " down arrow " to move up and down file directory
         
-        let newItem2 = Item()
-        newItem2.title = "Love"
-        itemArray.append(newItem2)
+        loadItems()
         
-        let newItem3 = Item()
-        newItem3.title = "Here"
-        itemArray.append(newItem3)
-        
-      if let items = defaults.array(forKey: "RemindMeListArray") as? [Item] {
-           itemArray = items
-         }
-  
-    }
+       }
 
 //MARK Tableview Datasource Method
     
@@ -65,11 +57,9 @@ class RemindMeListViewController: UITableViewController {
     // Mark - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // print(indexPath.row)]
-        
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
-        tableView.reloadData()
+        saveItems()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -95,9 +85,7 @@ class RemindMeListViewController: UITableViewController {
             
             self.itemArray.append(newItem)
             
-            self.defaults.set(self.itemArray, forKey: "RemindMeListArray")
-            
-            self.tableView.reloadData()
+           self.saveItems()
             
         }
         
@@ -113,6 +101,39 @@ class RemindMeListViewController: UITableViewController {
         
     }
     
+    // MARK -- Model Manipulation Methods
     
+    func saveItems(){
+        let encoder = PropertyListEncoder()
+        
+        do{
+            let data = try encoder.encode(itemArray)
+            try data.write(to: dataFilePath!)
+            
+        }catch{
+            print("Error encoding item array, \(error)")
+        }
+        
+        //self.defaults.set(self.itemArray, forKey: "RemindMeListArray")
+        
+        self.tableView.reloadData()
+        
+    }
+    
+    func loadItems(){
+        if let data = try? Data(contentsOf: dataFilePath!){
+           
+            let decoder = PropertyListDecoder()
+            
+            do {
+            itemArray = try decoder.decode([Item].self, from: data)
+            
+            }catch{
+            
+                print("Error decoding item array, \(error)")
+            }
+            
+        }
+    }
 }
 
