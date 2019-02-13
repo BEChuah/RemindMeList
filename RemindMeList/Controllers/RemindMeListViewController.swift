@@ -7,15 +7,24 @@
 //
 
 import UIKit
+import CoreData
 
 class RemindMeListViewController: UITableViewController {
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var itemArray = [Item] ()
-
-    let defaults = UserDefaults.standard
     
-    let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Item.plist")
+    var selectedCategory : Category? {
+        didSet{
+            loadItems()
+        }
+    }
+    
+    
+    //let defaults = UserDefaults.standard
+    
+    //let dataFilePath = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("Item.plist")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +34,10 @@ class RemindMeListViewController: UITableViewController {
         // To show hidden file on Finder use short cut ["Comand" + "Shift" + "." ]
         // Use short cut [ "Command" + " up arrow" or " down arrow " to move up and down file directory
         
-        loadItems()
+        //print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        //[file:///Users/bengeechuah/Library/Developer/CoreSimulator/Devices/BE603A7D-9F07-4741-B5D7-069F724C0AB5/data/Containers/Data/Application/CA3E816C-8323-47B4-8FCC-EAAFA884F865/Documents/]
+        
+        
         
        }
 
@@ -40,7 +52,7 @@ class RemindMeListViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
         
         let item = itemArray[indexPath.row]
-        
+    
         cell.textLabel?.text = item.title
         
         //Ternary operator ==>
@@ -57,16 +69,18 @@ class RemindMeListViewController: UITableViewController {
     // Mark - TableView Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+    
+        
+       // context.delete(itemArray[indexPath.row])
+       // itemArray.remove(at: indexPath.row)
+        
         itemArray[indexPath.row].done = !itemArray[indexPath.row].done
         
         saveItems()
         
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    
-    
-    
+  
     // Mark - Add New Item button IB outlet
     
     
@@ -78,22 +92,21 @@ class RemindMeListViewController: UITableViewController {
         let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
             //what happened once the user click the uialert button
             
-            let newItem = Item()
+            let newItem = Item(context: self.context)
             
             newItem.title = textField.text!
-            
-            
+            newItem.done = false
+            newItem.parentCategory = self.selectedCategory
             self.itemArray.append(newItem)
             
            self.saveItems()
-            
+    
         }
         
         alert.addTextField { (alertTextField) in
             alertTextField.placeholder = "Create new item"
             textField = alertTextField
-            
-            
+         
         }
         
         alert.addAction(action)
@@ -104,14 +117,11 @@ class RemindMeListViewController: UITableViewController {
     // MARK -- Model Manipulation Methods
     
     func saveItems(){
-        let encoder = PropertyListEncoder()
-        
+   
         do{
-            let data = try encoder.encode(itemArray)
-            try data.write(to: dataFilePath!)
-            
+            try context.save()
         }catch{
-            print("Error encoding item array, \(error)")
+            print("Erro saving context \(error)")
         }
         
         //self.defaults.set(self.itemArray, forKey: "RemindMeListArray")
@@ -120,20 +130,55 @@ class RemindMeListViewController: UITableViewController {
         
     }
     
-    func loadItems(){
-        if let data = try? Data(contentsOf: dataFilePath!){
-           
-            let decoder = PropertyListDecoder()
+    func loadItems (with request: NSFetchRequest<Item> = Item.fetchRequest(), predicate: NSPredicate? = nil) {
+        
+        let categoryPredicate = NSPredicate(format: "parentCategory.name MATCHES %@", selectedCategory!.name!)
+        
+        if let additionalPredicate = predicate {
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, additionalPredicate])
+        } else {
+            request.predicate = categoryPredicate
+        }
+//        let compoundPredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [categoryPredicate, predicate])
+//
+//        request.predicate = compoundPredicate
+        
+    //let request : NSFetchRequest<Item> = Item.fetchRequest()
+    do {
+        itemArray = try context.fetch(request)
+    }catch{
+        print("Error fetching data request from context \(error)")
+    }
+        tableView.reloadData()
+  }
+}
+
+// Mark - Extension - Search bar method
+
+extension RemindMeListViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+      
+        let request : NSFetchRequest<Item> = Item.fetchRequest()
+       
+        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+      
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        
+        loadItems(with: request, predicate: predicate)
+        
+        DispatchQueue.main.async {
+            searchBar.resignFirstResponder()
+        }      // https//academy.realm.io/posts/nspredicate_cheatsheet/
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadItems()
             
-            do {
-            itemArray = try decoder.decode([Item].self, from: data)
-            
-            }catch{
-            
-                print("Error decoding item array, \(error)")
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
             }
-            
         }
     }
 }
-

@@ -9,7 +9,46 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Remind Me-->
+        <!--Remind  Me Category-->
+        <scene sceneID="uxV-7j-yYS">
+            <objects>
+                <tableViewController id="Cf9-uc-nDu" customClass="CategoryViewController" customModule="RemindMeList" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="lwE-dQ-kjS">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CategoryCell" id="coy-Go-F05">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="coy-Go-F05" id="ZxV-79-gvN">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Cf9-uc-nDu" id="Ym5-tb-sby"/>
+                            <outlet property="delegate" destination="Cf9-uc-nDu" id="qxm-3x-atK"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Remind  Me Category" id="0XP-JN-Y4m">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="UB9-MT-Fh7">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addButtonPressed:" destination="Cf9-uc-nDu" id="Vyc-cL-ODK"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="vWX-pF-wqf" kind="show" identifier="goToItem" id="lIg-ie-MX2"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EBu-mb-iS9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-407" y="-297"/>
+        </scene>
+        <!--Items-->
         <scene sceneID="1fH-UV-1Bo">
             <objects>
                 <tableViewController id="vWX-pF-wqf" customClass="RemindMeListViewController" customModule="RemindMeList" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,9 +56,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="Gb2-Ph-tlE">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <connections>
+                                <outlet property="delegate" destination="vWX-pF-wqf" id="MYk-3T-pOt"/>
+                            </connections>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ToDoItemCell" rowHeight="53" id="CIk-qu-h2q">
-                                <rect key="frame" x="0.0" y="28" width="375" height="53"/>
+                                <rect key="frame" x="0.0" y="72" width="375" height="53"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="CIk-qu-h2q" id="NV0-30-hvG">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="52.5"/>
@@ -32,7 +79,7 @@
                             <outlet property="delegate" destination="vWX-pF-wqf" id="IxN-5m-h0g"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Remind Me" leftItemsSupplementBackButton="YES" id="bcj-ND-8jd">
+                    <navigationItem key="navigationItem" title="Items" leftItemsSupplementBackButton="YES" id="bcj-ND-8jd">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Cxn-Qi-fqp">
                             <color key="tintColor" red="1" green="0.42405244477655157" blue="0.49095855887009276" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
@@ -43,7 +90,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Od6-jS-Mkl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-516" y="-297"/>
+            <point key="canvasLocation" x="334" y="-297"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="n9d-ux-L1I">
@@ -67,7 +114,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="vWX-pF-wqf" kind="relationship" relationship="rootViewController" id="lRy-Nh-JsL"/>
+                        <segue destination="Cf9-uc-nDu" kind="relationship" relationship="rootViewController" id="eBc-lI-cWM"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZZA-gL-E4m" userLabel="First Responder" sceneMemberID="firstResponder"/>
