@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +20,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         
        // print(NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).last! as String)
+        print(Realm.Configuration.defaultConfiguration.fileURL)
+       // Optional(file:///Users/bengeechuah/Library/Developer/CoreSimulator/Devices/BE603A7D-9F07-4741-//B5D7-069F724C0AB5/data/Containers/Data/Application/3D16D40A-D4C1-4682-82B3-93C13AF0317A///Documents/default.realm)
+        // RemindMeList[1612:19755] Version 3.13.1 of Realm is now available: https://github.com/realm/realm-cocoa/blob/v3.13.1/CHANGELOG.md
+        // command + shift + g enter file path to go to the file directly. without (file://)
+        
+       
+        
+        do {
+            let realm  = try Realm()
+            
+        }catch{
+            print("Error initialising new realm, \(error)")
+        }
         
         return true
     }

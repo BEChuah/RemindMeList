@@ -8,17 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		1F416261EE4990720C3CB272 /* Pods_RemindMeList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E6E89DB676D0E313606F63 /* Pods_RemindMeList.framework */; };
+		4E1F7CC5221DA2E1006AD6E2 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F7CC4221DA2E1006AD6E2 /* Item.swift */; };
+		4E1F7CC7221DA2F6006AD6E2 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F7CC6221DA2F6006AD6E2 /* Category.swift */; };
 		4E90030B2200B15E00CE985E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90030A2200B15E00CE985E /* AppDelegate.swift */; };
 		4E90030D2200B15E00CE985E /* RemindMeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90030C2200B15E00CE985E /* RemindMeListViewController.swift */; };
 		4E9003102200B15E00CE985E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E90030E2200B15E00CE985E /* Main.storyboard */; };
 		4E9003122200B16300CE985E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4E9003112200B16300CE985E /* Assets.xcassets */; };
 		4E9003152200B16300CE985E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E9003132200B16300CE985E /* LaunchScreen.storyboard */; };
-		4E9003492212C78700CE985E /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4E9003472212C78700CE985E /* DataModel.xcdatamodeld */; };
 		4E90034D2213301100CE985E /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90034C2213301100CE985E /* CategoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		45A1F751DD94D604CFC04A06 /* Pods-RemindMeList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RemindMeList.release.xcconfig"; path = "Pods/Target Support Files/Pods-RemindMeList/Pods-RemindMeList.release.xcconfig"; sourceTree = "<group>"; };
+		4E1F7CC4221DA2E1006AD6E2 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
+		4E1F7CC6221DA2F6006AD6E2 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		4E9003072200B15E00CE985E /* RemindMeList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemindMeList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E90030A2200B15E00CE985E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E90030C2200B15E00CE985E /* RemindMeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindMeListViewController.swift; sourceTree = "<group>"; };
@@ -26,7 +29,6 @@
 		4E9003112200B16300CE985E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4E9003142200B16300CE985E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4E9003162200B16300CE985E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4E9003482212C78700CE985E /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		4E90034C2213301100CE985E /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
 		7A885BE0580446FE24F73ABE /* Pods-RemindMeList.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RemindMeList.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RemindMeList/Pods-RemindMeList.debug.xcconfig"; sourceTree = "<group>"; };
 		C7E6E89DB676D0E313606F63 /* Pods_RemindMeList.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RemindMeList.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,7 +89,8 @@
 		4E90031E220B351100CE985E /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				4E9003472212C78700CE985E /* DataModel.xcdatamodeld */,
+				4E1F7CC6221DA2F6006AD6E2 /* Category.swift */,
+				4E1F7CC4221DA2E1006AD6E2 /* Item.swift */,
 			);
 			path = "Data Model";
 			sourceTree = "<group>";
@@ -248,10 +251,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4E1F7CC5221DA2E1006AD6E2 /* Item.swift in Sources */,
 				4E90034D2213301100CE985E /* CategoryViewController.swift in Sources */,
 				4E90030D2200B15E00CE985E /* RemindMeListViewController.swift in Sources */,
-				4E9003492212C78700CE985E /* DataModel.xcdatamodeld in Sources */,
 				4E90030B2200B15E00CE985E /* AppDelegate.swift in Sources */,
+				4E1F7CC7221DA2F6006AD6E2 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,19 +457,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		4E9003472212C78700CE985E /* DataModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				4E9003482212C78700CE985E /* DataModel.xcdatamodel */,
-			);
-			currentVersion = 4E9003482212C78700CE985E /* DataModel.xcdatamodel */;
-			path = DataModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 4E9002FF2200B15E00CE985E /* Project object */;
 }
