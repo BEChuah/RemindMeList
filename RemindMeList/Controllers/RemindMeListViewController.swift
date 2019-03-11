@@ -8,12 +8,17 @@
 
 import UIKit
 import RealmSwift
+import ChameleonFramework
 
-class RemindMeListViewController: UITableViewController {
+class RemindMeListViewController: SwipeTableViewController {
     // hold command click on itemArray click rename -
     var RemindMeItem: Results<Item>?
     let realm = try! Realm()
    
+    @IBOutlet weak var searchBar: UISearchBar!
+    // @IBAction weak var searchBar: UISearchBar
+    //@IBOutlet weak var searchBar: UISearchBar!
+    
     var selectedCategory : Category? {
         didSet{
            loadItems()
@@ -27,6 +32,8 @@ class RemindMeListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.separatorStyle = .none
+        
         // Do any additional setup after loading the view, typically from a nib.
         
         //Optional(file:///Users/bengeechuah/Library/Developer/CoreSimulator/Devices/BE603A7D-9F07-4741-B5D7-069F724C0AB5/data/Containers/Data/Application/9C60F719-6A9C-43BA-904C-579EC7C74315/Documents/Item.plist)
@@ -35,11 +42,30 @@ class RemindMeListViewController: UITableViewController {
         
         //print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         //[file:///Users/bengeechuah/Library/Developer/CoreSimulator/Devices/BE603A7D-9F07-4741-B5D7-069F724C0AB5/data/Containers/Data/Application/CA3E816C-8323-47B4-8FCC-EAAFA884F865/Documents/]
-        
-        
-        
        }
 
+    override func viewWillAppear(_ animated: Bool) {
+        title = selectedCategory?.name
+        guard let colourHex = selectedCategory?.colour else {fatalError()}
+        updateNavBar(withHexCode: colourHex)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        updateNavBar(withHexCode: "1D9BF6")
+    }
+    
+    //MARK: - Navigation Bar Setup Methods
+    
+    func updateNavBar(withHexCode colourHexCode: String) {
+        guard let navBar = navigationController?.navigationBar else {fatalError("Navigation controller does not exist")}
+        guard let navBarColour = UIColor(hexString: colourHexCode) else {fatalError()}
+        navBar.barTintColor = navBarColour
+        navBar.tintColor = ContrastColorOf(navBarColour, returnFlat: true)
+        navBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor : ContrastColorOf(navBarColour, returnFlat: true)]
+        searchBar.barTintColor = navBarColour
+    }
+    
+    
 //MARK Tableview Datasource Method
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,10 +74,17 @@ class RemindMeListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoItemCell", for: indexPath)
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
         
         if let item = RemindMeItem?[indexPath.row] {
+            
             cell.textLabel?.text = item.title
+            
+            if let colour = UIColor(hexString: selectedCategory!.colour)?.darken(byPercentage: CGFloat(indexPath.row)/CGFloat(RemindMeItem!.count)/CGFloat(5)){
+                cell.backgroundColor = colour
+                cell.textLabel?.textColor = ContrastColorOf(colour, returnFlat: true)
+            }
             cell.accessoryType = item.done ? .checkmark : .none
         }else {
             cell.textLabel?.text = "No Item Added"
@@ -129,10 +162,22 @@ class RemindMeListViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    override func updateModel(at indexPath: IndexPath) {
+        if let item = RemindMeItem?[indexPath.row] {
+            do{
+                try realm.write {
+                    realm.delete(item)
+                }
+            }catch{
+                print("Error deleting Item, \(error)")
+            }
+        }
+    }
+    
 }
+    
 
-
-// Mark - Extension - Search bar method
+//Mark: - Extension - Search bar method
 
 //extension RemindMeListViewController: UISearchBarDelegate {
     extension RemindMeListViewController: UISearchBarDelegate {

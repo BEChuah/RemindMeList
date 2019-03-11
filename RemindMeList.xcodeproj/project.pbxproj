@@ -10,6 +10,7 @@
 		1F416261EE4990720C3CB272 /* Pods_RemindMeList.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7E6E89DB676D0E313606F63 /* Pods_RemindMeList.framework */; };
 		4E1F7CC5221DA2E1006AD6E2 /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F7CC4221DA2E1006AD6E2 /* Item.swift */; };
 		4E1F7CC7221DA2F6006AD6E2 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1F7CC6221DA2F6006AD6E2 /* Category.swift */; };
+		4E40BE46222950DD0085CD68 /* SwipeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E40BE45222950DD0085CD68 /* SwipeTableViewController.swift */; };
 		4E90030B2200B15E00CE985E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90030A2200B15E00CE985E /* AppDelegate.swift */; };
 		4E90030D2200B15E00CE985E /* RemindMeListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E90030C2200B15E00CE985E /* RemindMeListViewController.swift */; };
 		4E9003102200B15E00CE985E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E90030E2200B15E00CE985E /* Main.storyboard */; };
@@ -22,6 +23,7 @@
 		45A1F751DD94D604CFC04A06 /* Pods-RemindMeList.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RemindMeList.release.xcconfig"; path = "Pods/Target Support Files/Pods-RemindMeList/Pods-RemindMeList.release.xcconfig"; sourceTree = "<group>"; };
 		4E1F7CC4221DA2E1006AD6E2 /* Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		4E1F7CC6221DA2F6006AD6E2 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		4E40BE45222950DD0085CD68 /* SwipeTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeTableViewController.swift; sourceTree = "<group>"; };
 		4E9003072200B15E00CE985E /* RemindMeList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemindMeList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4E90030A2200B15E00CE985E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4E90030C2200B15E00CE985E /* RemindMeListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindMeListViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			children = (
 				4E90034C2213301100CE985E /* CategoryViewController.swift */,
 				4E90030C2200B15E00CE985E /* RemindMeListViewController.swift */,
+				4E40BE45222950DD0085CD68 /* SwipeTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -229,15 +232,19 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-RemindMeList/Pods-RemindMeList-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SwipeCellKit/SwipeCellKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwipeCellKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -255,6 +262,7 @@
 				4E90034D2213301100CE985E /* CategoryViewController.swift in Sources */,
 				4E90030D2200B15E00CE985E /* RemindMeListViewController.swift in Sources */,
 				4E90030B2200B15E00CE985E /* AppDelegate.swift in Sources */,
+				4E40BE46222950DD0085CD68 /* SwipeTableViewController.swift in Sources */,
 				4E1F7CC7221DA2F6006AD6E2 /* Category.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
